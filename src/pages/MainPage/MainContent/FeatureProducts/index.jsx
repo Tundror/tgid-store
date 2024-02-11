@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Container, ProductsArea, ProductCard, TitleContainer, ButtonArrow } from './styles';
 import { FiShoppingCart, FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import jsonApi from "../../../../services/jsonApi.js"
 
 const FeatureProducts = () => {
@@ -13,7 +13,6 @@ const FeatureProducts = () => {
     async function fetchFeaturedProducts() {
       try {
         const response = await jsonApi.getProducts();
-        console.log(response)
         setFeaturedProducts(response);
       } catch (error) {
         console.error(error);
@@ -50,20 +49,22 @@ const FeatureProducts = () => {
       </TitleContainer>
       <ProductsArea ref={scrollContainer}>
         {featuredProducts.map(product => (
-          <ProductCard>
-            <div className='productImageArea'>
-              <img src={product.imagem} alt="" />
-            </div>
-            <div className='productDescArea'>
-              <div className="descArea">
-                <p>{product.nome.split(" ").slice(0, 3).join(" ")}</p>
-                <p>R$ {product.preco.toFixed(2).replace(".", ",")}</p>
+          <Link to={`/product/${product.id}`} key={product.id}>
+            <ProductCard>
+              <div className='productImageArea'>
+                <img src={product.imagem} alt="" />
               </div>
-              <div className='cartIconArea' onClick={() => navigate(`/products/${product.slug}`)}>
-                <FiShoppingCart />
+              <div className='productDescArea'>
+                <div className="descArea">
+                  <p>{product.nome.split(" ").slice(0, 3).join(" ")}</p>
+                  <p>R$ {product.preco.toFixed(2).replace(".", ",")}</p>
+                </div>
+                <div className='cartIconArea' onClick={() => navigate(`/products/${product.id}`)}>
+                  <FiShoppingCart />
+                </div>
               </div>
-            </div>
-          </ProductCard>
+            </ProductCard>
+          </Link>
         ))}
       </ProductsArea>
 

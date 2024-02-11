@@ -40,14 +40,14 @@ export const ProductsArea = styled.div`
 export const ProductCard = styled.div`
     .productImageArea{
         width:385px;
-        height:515px;
+        height: 385px;
         border-radius:5px;
         position:relative;
 
         img{
             position:absolute;
             bottom:0;
-            
+            height: 100%;
             width: 100%;
         }
     }

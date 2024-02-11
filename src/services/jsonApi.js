@@ -23,7 +23,7 @@ const getOneProduct = async (product) => {
     }
 };
 
-const getCartProducts = async (token) => {
+const getCartProducts = async () => {
     try {
         const response = await axiosInstance.get(`/cart`);
         return response.data.userCart;
@@ -32,7 +32,7 @@ const getCartProducts = async (token) => {
     }
 };
 
-const postCartProducts = async (products, token) => {
+const postCartProducts = async (products) => {
     try {
         await axiosInstance.post(`/cart`, { products });
     } catch (error) {
