@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer/footer.js";
 import Header from "../../components/Header/header.js";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -8,9 +8,10 @@ import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { CartContext } from "../../contexts/cartContext.js";
 
 export default function ProductsPage() {
+    const navigate = useNavigate()
     const { id } = useParams()
     const [product, setProduct] = useState({})
-    const quantityRef = useRef(null);
+    const quantityRef = useRef(1);
     const { cart, setCart } = useContext(CartContext);
 
     useEffect(() => {
@@ -33,16 +34,18 @@ export default function ProductsPage() {
         quantityRef.current.value = quantity;
     };
 
-    const addToCart = () => {
-        const { name, id, image, price } = product;
-        const productToAdd = { name, id, image, price, quantity: Number(quantityRef.current.value) };
-        const newCart = [...cart];
+    const addToCart = (cart) => {
+        const trueCart = cart ? cart : []
+        const { nome, id, imagem, preco, descricao } = product;
+        const productToAdd = { nome, id, imagem, preco, descricao, quantidade: Number(quantityRef.current.value) };
+        const newCart = [...trueCart];
         newCart.push(productToAdd);
-        console.log(newCart);
         setCart(newCart)
 
+        localStorage.setItem('cart', JSON.stringify(newCart));
+
         jsonApi.postCartProducts(newCart)
-            .then(() => Navigate('/cart'))
+            .then(() => navigate('/cart'))
             .catch(err => alert(err.message));
     }
 
@@ -87,7 +90,7 @@ export default function ProductsPage() {
                             </button>
                         </Quantity>
 
-                        <AddToCart onClick={addToCart}>
+                        <AddToCart onClick={() => addToCart(cart)}>
                             Adicionar ao carrinho
                             <FiShoppingCart />
                         </AddToCart>
