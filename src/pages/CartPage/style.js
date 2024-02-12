@@ -65,7 +65,7 @@ export const Product = styled.div`
     text-align: center;
   }
   img{
-    width: 172px;
+    height: 100%;
     position:relative;
     bottom:-20px;
   }
@@ -116,36 +116,7 @@ export const ContainerSubtotal = styled.div`
     font-size: 16px;
   }
 `
-export const Coupon = styled.div`
-  height: 147px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  input{
-    width: 294px;
-    height: 43px;
-    background: #FFFFFF;
-    border: 1px solid #D9D9D9;
-    padding-left: 21px;
-    ::placeholder{
-      font-family: 'Raleway';
-      font-weight: 500;
-      font-size: 16px;
-      color: #B0B0B0;
-    }
-  }
-  button{
-    width: 137px;
-    height: 43px;
-    background: ${colors.primaryColor};
-    font-family: 'Raleway';
-    font-weight: 600;
-    font-size: 14px;
-    color: #FFFFFF;
-    border: none;
-    cursor: pointer;
-  }
-`
+
 export const ContainerToCheckout = styled.div`
   padding-top: 43px;
   display: flex;

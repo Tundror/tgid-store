@@ -54,6 +54,10 @@ export default function CartPage() {
         jsonApi.postCartProducts(newCart);
     }
 
+    function emptyCart() {
+        setCart([])
+        localStorage.removeItem('cart')
+    }
     return (
         <>
             <Header />
@@ -105,7 +109,7 @@ export default function CartPage() {
                                 <p>{subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                             </div>
                         </ContainerTotal>
-                        <Link to={'/checkout'}><button>Prosseguir para o check-out</button></Link>
+                        <Link to={'/checkout'}><button onClick={emptyCart}>Finalizar compra</button></Link>
                     </ContainerToCheckout>
                 </ContainerRight>
             </ContainerCartPage>
